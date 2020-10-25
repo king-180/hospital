@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.HerbalTemplateMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.HerbalTemplate">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="DoctorID" jdbcType="INTEGER" property="doctorid"/>
+        <result column="CreationTime" jdbcType="TIMESTAMP" property="creationtime"/>
+        <result column="PrescriptioType" jdbcType="VARCHAR" property="prescriptiotype"/>
+        <result column="PayNumber" jdbcType="INTEGER" property="paynumber"/>
+        <result column="DrugsUsage" jdbcType="VARCHAR" property="drugsusage"/>
+        <result column="Therapy" jdbcType="VARCHAR" property="therapy"/>
+        <result column="Detailed" jdbcType="VARCHAR" property="detailed"/>
+        <result column="Advice" jdbcType="VARCHAR" property="advice"/>
+        <result column="Scope" jdbcType="VARCHAR" property="scope"/>
+        <result column="DelMark" jdbcType="INTEGER" property="delmark"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from herbaltemplate
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.HerbalTemplate">
+        insert into herbaltemplate (ID, Name, DoctorID,
+                                    CreationTime, PrescriptioType, PayNumber,
+                                    DrugsUsage, Therapy, Detailed,
+                                    Advice, Scope, DelMark)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{doctorid,jdbcType=INTEGER},
+                #{creationtime,jdbcType=TIMESTAMP}, #{prescriptiotype,jdbcType=VARCHAR}, #{paynumber,jdbcType=INTEGER},
+                #{drugsusage,jdbcType=VARCHAR}, #{therapy,jdbcType=VARCHAR}, #{detailed,jdbcType=VARCHAR},
+                #{advice,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}, #{delmark,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.HerbalTemplate">
+        update herbaltemplate
+        set Name            = #{name,jdbcType=VARCHAR},
+            DoctorID        = #{doctorid,jdbcType=INTEGER},
+            CreationTime    = #{creationtime,jdbcType=TIMESTAMP},
+            PrescriptioType = #{prescriptiotype,jdbcType=VARCHAR},
+            PayNumber       = #{paynumber,jdbcType=INTEGER},
+            DrugsUsage      = #{drugsusage,jdbcType=VARCHAR},
+            Therapy         = #{therapy,jdbcType=VARCHAR},
+            Detailed        = #{detailed,jdbcType=VARCHAR},
+            Advice          = #{advice,jdbcType=VARCHAR},
+            Scope           = #{scope,jdbcType=VARCHAR},
+            DelMark         = #{delmark,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               Name,
+               DoctorID,
+               CreationTime,
+               PrescriptioType,
+               PayNumber,
+               DrugsUsage,
+               Therapy,
+               Detailed,
+               Advice,
+               Scope,
+               DelMark
+        from herbaltemplate
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        # select ID, Name, DoctorID, CreationTime, PrescriptioType, PayNumber, DrugsUsage,
+        # Therapy, Detailed, Advice, Scope, DelMark
+        # from herbaltemplate
+        SELECT A.`Name`,
+               B.RealName,
+               A.CreationTime,
+               A.PrescriptioType,
+               A.PayNumber,
+               A.DrugsUsage,
+               A.Therapy,
+               A.Detailed,
+               A.Advice,
+               A.Scope,
+               A.DelMark
+        FROM herbaltemplate A
+                 LEFT JOIN `user` B
+                           ON A.DoctorID = B.ID
+    </select>
+</mapper>

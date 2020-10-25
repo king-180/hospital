@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.PatientCostsMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.PatientCosts">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="RegistID" jdbcType="INTEGER" property="registid"/>
+        <result column="InvoiceID" jdbcType="INTEGER" property="invoiceid"/>
+        <result column="ItemID" jdbcType="INTEGER" property="itemid"/>
+        <result column="ItemType" jdbcType="INTEGER" property="itemtype"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="Price" jdbcType="DECIMAL" property="price"/>
+        <result column="Amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="DeptID" jdbcType="INTEGER" property="deptid"/>
+        <result column="Createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="CreateOperID" jdbcType="INTEGER" property="createoperid"/>
+        <result column="PayTime" jdbcType="TIMESTAMP" property="paytime"/>
+        <result column="RegisterID" jdbcType="INTEGER" property="registerid"/>
+        <result column="FeeType" jdbcType="INTEGER" property="feetype"/>
+        <result column="BackID" jdbcType="INTEGER" property="backid"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from patientcosts
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.PatientCosts">
+        insert into patientcosts (ID, RegistID, InvoiceID,
+                                  ItemID, ItemType, Name,
+                                  Price, Amount, DeptID,
+                                  Createtime, CreateOperID, PayTime,
+                                  RegisterID, FeeType, BackID)
+        values (#{id,jdbcType=INTEGER}, #{registid,jdbcType=INTEGER}, #{invoiceid,jdbcType=INTEGER},
+                #{itemid,jdbcType=INTEGER}, #{itemtype,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+                #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{deptid,jdbcType=INTEGER},
+                #{createtime,jdbcType=TIMESTAMP}, #{createoperid,jdbcType=INTEGER}, #{paytime,jdbcType=TIMESTAMP},
+                #{registerid,jdbcType=INTEGER}, #{feetype,jdbcType=INTEGER}, #{backid,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.PatientCosts">
+        update patientcosts
+        set RegistID     = #{registid,jdbcType=INTEGER},
+            InvoiceID    = #{invoiceid,jdbcType=INTEGER},
+            ItemID       = #{itemid,jdbcType=INTEGER},
+            ItemType     = #{itemtype,jdbcType=INTEGER},
+            Name         = #{name,jdbcType=VARCHAR},
+            Price        = #{price,jdbcType=DECIMAL},
+            Amount       = #{amount,jdbcType=DECIMAL},
+            DeptID       = #{deptid,jdbcType=INTEGER},
+            Createtime   = #{createtime,jdbcType=TIMESTAMP},
+            CreateOperID = #{createoperid,jdbcType=INTEGER},
+            PayTime      = #{paytime,jdbcType=TIMESTAMP},
+            RegisterID   = #{registerid,jdbcType=INTEGER},
+            FeeType      = #{feetype,jdbcType=INTEGER},
+            BackID       = #{backid,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               RegistID,
+               InvoiceID,
+               ItemID,
+               ItemType,
+               Name,
+               Price,
+               Amount,
+               DeptID,
+               Createtime,
+               CreateOperID,
+               PayTime,
+               RegisterID,
+               FeeType,
+               BackID
+        from patientcosts
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        # select ID, RegistID, InvoiceID, ItemID, ItemType, Name, Price, Amount, DeptID, Createtime,
+        #  CreateOperID, PayTime, RegisterID, FeeType, BackID
+        # from patientcosts
+        SELECT B.RealName,
+               A.InvoiceID,
+               A.ItemID,
+               A.ItemType,
+               A.`Name`,
+               A.Price,
+               A.Amount,
+               D.DeptName,
+               A.Createtime,
+               E.RealName   as kaili,
+               A.PayTime,
+               A.RegisterID as tuifei,
+               F.ConstantName,
+               A.BackID
+        FROM patientcosts A
+                 LEFT JOIN register B
+                           ON A.RegistID = B.ID
+                 LEFT JOIN invoice C
+                           ON A.InvoiceID = C.ID
+                 LEFT JOIN department D
+                           ON A.DeptID = D.ID
+                 LEFT JOIN `user` E
+                           ON A.CreateOperID = E.ID
+                 LEFT JOIN constantitem F
+                           ON A.FeeType = F.ID
+
+    </select>
+</mapper>

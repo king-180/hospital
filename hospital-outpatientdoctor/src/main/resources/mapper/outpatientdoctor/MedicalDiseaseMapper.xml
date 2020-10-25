@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.MedicalDiseaseMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.MedicalDisease">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="MedicalID" jdbcType="INTEGER" property="medicalid"/>
+        <result column="RegistID" jdbcType="INTEGER" property="registid"/>
+        <result column="DiseaseID" jdbcType="INTEGER" property="diseaseid"/>
+        <result column="DiagnoseType" jdbcType="INTEGER" property="diagnosetype"/>
+        <result column="GetSiskDate" jdbcType="TIMESTAMP" property="getsiskdate"/>
+        <result column="DiagnoseCate" jdbcType="INTEGER" property="diagnosecate"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from medicaldisease
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.MedicalDisease">
+        insert into medicaldisease (ID, MedicalID, RegistID,
+                                    DiseaseID, DiagnoseType, GetSiskDate,
+                                    DiagnoseCate)
+        values (#{id,jdbcType=INTEGER}, #{medicalid,jdbcType=INTEGER}, #{registid,jdbcType=INTEGER},
+                #{diseaseid,jdbcType=INTEGER}, #{diagnosetype,jdbcType=INTEGER}, #{getsiskdate,jdbcType=TIMESTAMP},
+                #{diagnosecate,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.MedicalDisease">
+        update medicaldisease
+        set MedicalID    = #{medicalid,jdbcType=INTEGER},
+            RegistID     = #{registid,jdbcType=INTEGER},
+            DiseaseID    = #{diseaseid,jdbcType=INTEGER},
+            DiagnoseType = #{diagnosetype,jdbcType=INTEGER},
+            GetSiskDate  = #{getsiskdate,jdbcType=TIMESTAMP},
+            DiagnoseCate = #{diagnosecate,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID, MedicalID, RegistID, DiseaseID, DiagnoseType, GetSiskDate, DiagnoseCate
+        from medicaldisease
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" parameterType="com.neu.hospital.outpatientdoctor.entity.MedicalDisease"
+            resultMap="BaseResultMap">
+        #  select ID, MedicalID, RegistID, DiseaseID, DiagnoseType, GetSiskDate, DiagnoseCate
+        # from medicaldisease
+        SELECT A.MedicalID, C.RealName, D.DiseaseName, A.DiagnoseType, A.GetSiskDate, A.DiagnoseCate
+        from medicaldisease A
+                 LEFT JOIN medicalrecord B
+                           ON A.MedicalID = B.ID
+                 LEFT JOIN register C
+                           ON A.RegistID = C.ID
+                 LEFT JOIN disease D
+                           ON A.DiseaseID = D.ID
+    </select>
+</mapper>

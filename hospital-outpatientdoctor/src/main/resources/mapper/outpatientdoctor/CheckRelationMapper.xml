@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.CheckRelationMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.CheckRelation">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="CheckProjID" jdbcType="INTEGER" property="checkprojid"/>
+        <result column="CheckTempID" jdbcType="INTEGER" property="checktempid"/>
+        <result column="Position" jdbcType="VARCHAR" property="position"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from checkrelation
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckRelation">
+        insert into checkrelation (ID, CheckProjID, CheckTempID,
+                                   Position)
+        values (#{id,jdbcType=INTEGER}, #{checkprojid,jdbcType=INTEGER}, #{checktempid,jdbcType=INTEGER},
+                #{position,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckRelation">
+        update checkrelation
+        set CheckProjID = #{checkprojid,jdbcType=INTEGER},
+            CheckTempID = #{checktempid,jdbcType=INTEGER},
+            Position    = #{position,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID, CheckProjID, CheckTempID, Position
+        from checkrelation
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT B.ItemName, C.`Name`, A.Position
+        FROM checkrelation A
+                 LEFT JOIN fmeditem B
+                           ON A.CheckProjID = B.ID
+                 LEFT JOIN checktemplate C
+                           ON A.CheckTempID = C.ID
+    </select>
+</mapper>

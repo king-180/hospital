@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.CheckTemplateMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.CheckTemplate">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="UserID" jdbcType="INTEGER" property="userid"/>
+        <result column="CreationTime" jdbcType="TIMESTAMP" property="creationtime"/>
+        <result column="Scope" jdbcType="CHAR" property="scope"/>
+        <result column="RecordType" jdbcType="INTEGER" property="recordtype"/>
+        <result column="DelMark" jdbcType="INTEGER" property="delmark"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from checktemplate
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckTemplate">
+        insert into checktemplate (ID, Name, UserID,
+                                   CreationTime, Scope, RecordType,
+                                   DelMark)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER},
+                #{creationtime,jdbcType=TIMESTAMP}, #{scope,jdbcType=CHAR}, #{recordtype,jdbcType=INTEGER},
+                #{delmark,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckTemplate">
+        update checktemplate
+        set Name         = #{name,jdbcType=VARCHAR},
+            UserID       = #{userid,jdbcType=INTEGER},
+            CreationTime = #{creationtime,jdbcType=TIMESTAMP},
+            Scope        = #{scope,jdbcType=CHAR},
+            RecordType   = #{recordtype,jdbcType=INTEGER},
+            DelMark      = #{delmark,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID, Name, UserID, CreationTime, Scope, RecordType, DelMark
+        from checktemplate
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT A.`Name`, B.RealName, A.CreationTime, A.Scope, A.RecordType, A.DelMark
+        FROM checktemplate A
+                 LEFT JOIN `user` B
+                           ON A.UserID = B.ID
+    </select>
+</mapper>

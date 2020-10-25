@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.CheckApplyMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.CheckApply">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="MedicalID" jdbcType="INTEGER" property="medicalid"/>
+        <result column="RegistID" jdbcType="INTEGER" property="registid"/>
+        <result column="ItemID" jdbcType="INTEGER" property="itemid"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="Objective" jdbcType="VARCHAR" property="objective"/>
+        <result column="Position" jdbcType="VARCHAR" property="position"/>
+        <result column="IsUrgent" jdbcType="INTEGER" property="isurgent"/>
+        <result column="Num" jdbcType="INTEGER" property="num"/>
+        <result column="CreationTime" jdbcType="TIMESTAMP" property="creationtime"/>
+        <result column="DoctorID" jdbcType="INTEGER" property="doctorid"/>
+        <result column="CheckOperID" jdbcType="INTEGER" property="checkoperid"/>
+        <result column="ResultOperID" jdbcType="INTEGER" property="resultoperid"/>
+        <result column="CheckTime" jdbcType="TIMESTAMP" property="checktime"/>
+        <result column="Result" jdbcType="VARCHAR" property="result"/>
+        <result column="ResultTime" jdbcType="TIMESTAMP" property="resulttime"/>
+        <result column="State" jdbcType="INTEGER" property="state"/>
+        <result column="RecordType" jdbcType="INTEGER" property="recordtype"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from checkapply
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckApply">
+        insert into checkapply (ID, MedicalID, RegistID,
+                                ItemID, Name, Objective,
+                                Position, IsUrgent, Num,
+                                CreationTime, DoctorID, CheckOperID,
+                                ResultOperID, CheckTime, Result,
+                                ResultTime, State, RecordType)
+        values (#{id,jdbcType=INTEGER}, #{medicalid,jdbcType=INTEGER}, #{registid,jdbcType=INTEGER},
+                #{itemid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{objective,jdbcType=VARCHAR},
+                #{position,jdbcType=VARCHAR}, #{isurgent,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+                #{creationtime,jdbcType=TIMESTAMP}, #{doctorid,jdbcType=INTEGER}, #{checkoperid,jdbcType=INTEGER},
+                #{resultoperid,jdbcType=INTEGER}, #{checktime,jdbcType=TIMESTAMP}, #{result,jdbcType=VARCHAR},
+                #{resulttime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, #{recordtype,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckApply">
+        update checkapply
+        set MedicalID    = #{medicalid,jdbcType=INTEGER},
+            RegistID     = #{registid,jdbcType=INTEGER},
+            ItemID       = #{itemid,jdbcType=INTEGER},
+            Name         = #{name,jdbcType=VARCHAR},
+            Objective    = #{objective,jdbcType=VARCHAR},
+            Position     = #{position,jdbcType=VARCHAR},
+            IsUrgent     = #{isurgent,jdbcType=INTEGER},
+            Num          = #{num,jdbcType=INTEGER},
+            CreationTime = #{creationtime,jdbcType=TIMESTAMP},
+            DoctorID     = #{doctorid,jdbcType=INTEGER},
+            CheckOperID  = #{checkoperid,jdbcType=INTEGER},
+            ResultOperID = #{resultoperid,jdbcType=INTEGER},
+            CheckTime    = #{checktime,jdbcType=TIMESTAMP},
+            Result       = #{result,jdbcType=VARCHAR},
+            ResultTime   = #{resulttime,jdbcType=TIMESTAMP},
+            State        = #{state,jdbcType=INTEGER},
+            RecordType   = #{recordtype,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               MedicalID,
+               RegistID,
+               ItemID,
+               Name,
+               Objective,
+               Position,
+               IsUrgent,
+               Num,
+               CreationTime,
+               DoctorID,
+               CheckOperID,
+               ResultOperID,
+               CheckTime,
+               Result,
+               ResultTime,
+               State,
+               RecordType
+        from checkapply
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" parameterType="com.neu.hospital.outpatientdoctor.entity.CheckApply"
+            resultMap="BaseResultMap">
+        SELECT C.RealName,
+               D.ItemName,
+               A.Objective,
+               A.Position,
+               A.IsUrgent,
+               A.Num,
+               A.CreationTime,
+               E.ID,
+               E.RealName as name2,
+               A.CheckTime,
+               A.Result,
+               A.ResultTime,
+               A.State,
+               A.RecordType
+        FROM checkapply A
+                 LEFT JOIN medicalrecord B
+                           ON A.MedicalID = B.ID
+                 LEFT JOIN register C
+                           ON A.RegistID = C.ID
+                 LEFT JOIN fmeditem D
+                           ON A.ItemID = D.ID
+                 LEFT JOIN `user` E
+                           ON A.DoctorID = E.ID
+    </select>
+</mapper>

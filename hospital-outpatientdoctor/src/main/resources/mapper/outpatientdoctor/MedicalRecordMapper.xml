@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.MedicalRecordMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.MedicalRecord">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="CaseNumber" jdbcType="VARCHAR" property="casenumber"/>
+        <result column="RegistID" jdbcType="INTEGER" property="registid"/>
+        <result column="Readme" jdbcType="VARCHAR" property="readme"/>
+        <result column="Present" jdbcType="VARCHAR" property="present"/>
+        <result column="PresentTreat" jdbcType="VARCHAR" property="presenttreat"/>
+        <result column="History" jdbcType="VARCHAR" property="history"/>
+        <result column="Allergy" jdbcType="VARCHAR" property="allergy"/>
+        <result column="Physique" jdbcType="VARCHAR" property="physique"/>
+        <result column="Proposal" jdbcType="VARCHAR" property="proposal"/>
+        <result column="Careful" jdbcType="VARCHAR" property="careful"/>
+        <result column="CheckResult" jdbcType="VARCHAR" property="checkresult"/>
+        <result column="Diagnosis" jdbcType="VARCHAR" property="diagnosis"/>
+        <result column="Handling" jdbcType="VARCHAR" property="handling"/>
+        <result column="CaseState" jdbcType="INTEGER" property="casestate"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from medicalrecord
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.MedicalRecord">
+        insert into medicalrecord (ID, CaseNumber, RegistID,
+                                   Readme, Present, PresentTreat,
+                                   History, Allergy, Physique,
+                                   Proposal, Careful, CheckResult,
+                                   Diagnosis, Handling, CaseState)
+        values (#{id,jdbcType=INTEGER}, #{casenumber,jdbcType=VARCHAR}, #{registid,jdbcType=INTEGER},
+                #{readme,jdbcType=VARCHAR}, #{present,jdbcType=VARCHAR}, #{presenttreat,jdbcType=VARCHAR},
+                #{history,jdbcType=VARCHAR}, #{allergy,jdbcType=VARCHAR}, #{physique,jdbcType=VARCHAR},
+                #{proposal,jdbcType=VARCHAR}, #{careful,jdbcType=VARCHAR}, #{checkresult,jdbcType=VARCHAR},
+                #{diagnosis,jdbcType=VARCHAR}, #{handling,jdbcType=VARCHAR}, #{casestate,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.MedicalRecord">
+        update medicalrecord
+        set CaseNumber   = #{casenumber,jdbcType=VARCHAR},
+            RegistID     = #{registid,jdbcType=INTEGER},
+            Readme       = #{readme,jdbcType=VARCHAR},
+            Present      = #{present,jdbcType=VARCHAR},
+            PresentTreat = #{presenttreat,jdbcType=VARCHAR},
+            History      = #{history,jdbcType=VARCHAR},
+            Allergy      = #{allergy,jdbcType=VARCHAR},
+            Physique     = #{physique,jdbcType=VARCHAR},
+            Proposal     = #{proposal,jdbcType=VARCHAR},
+            Careful      = #{careful,jdbcType=VARCHAR},
+            CheckResult  = #{checkresult,jdbcType=VARCHAR},
+            Diagnosis    = #{diagnosis,jdbcType=VARCHAR},
+            Handling     = #{handling,jdbcType=VARCHAR},
+            CaseState    = #{casestate,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               CaseNumber,
+               RegistID,
+               Readme,
+               Present,
+               PresentTreat,
+               History,
+               Allergy,
+               Physique,
+               Proposal,
+               Careful,
+               CheckResult,
+               Diagnosis,
+               Handling,
+               CaseState
+        from medicalrecord
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        #  select ID, CaseNumber, RegistID, Readme, Present, PresentTreat, History, Allergy,
+        #  Physique, Proposal, Careful, CheckResult, Diagnosis, Handling, CaseState
+        #  from medicalrecord
+        SELECT A.CaseNumber,
+               B.RealName,
+               A.Readme,
+               A.Present,
+               A.PresentTreat,
+               A.History,
+               A.Allergy,
+               A.Physique,
+               A.Careful,
+               A.CheckResult,
+               A.Diagnosis,
+               A.Handling,
+               A.CaseState
+        FROM medicalrecord A
+                 LEFT JOIN register B
+                           ON A.RegistID = B.ID
+    </select>
+</mapper>

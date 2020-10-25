@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.PrescriptionMapper">
+  <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.Prescription">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MedicalID" jdbcType="INTEGER" property="medicalid" />
+    <result column="RegistID" jdbcType="INTEGER" property="registid" />
+    <result column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="PrescriptionName" jdbcType="VARCHAR" property="prescriptionname" />
+    <result column="PrescriptionTime" jdbcType="TIMESTAMP" property="prescriptiontime" />
+    <result column="PrescriptionState" jdbcType="INTEGER" property="prescriptionstate" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prescription
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.Prescription">
+    insert into prescription (ID, MedicalID, RegistID, 
+      UserID, PrescriptionName, PrescriptionTime, 
+      PrescriptionState)
+    values (#{id,jdbcType=INTEGER}, #{medicalid,jdbcType=INTEGER}, #{registid,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{prescriptionname,jdbcType=VARCHAR}, #{prescriptiontime,jdbcType=TIMESTAMP}, 
+      #{prescriptionstate,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.Prescription">
+    update prescription
+    set MedicalID = #{medicalid,jdbcType=INTEGER},
+      RegistID = #{registid,jdbcType=INTEGER},
+      UserID = #{userid,jdbcType=INTEGER},
+      PrescriptionName = #{prescriptionname,jdbcType=VARCHAR},
+      PrescriptionTime = #{prescriptiontime,jdbcType=TIMESTAMP},
+      PrescriptionState = #{prescriptionstate,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, MedicalID, RegistID, UserID, PrescriptionName, PrescriptionTime, PrescriptionState
+    from prescription
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+#     select ID, MedicalID, RegistID, UserID, PrescriptionName, PrescriptionTime, PrescriptionState
+#     from prescription
+  SELECT A.MedicalID, C.RealName as name1, D.RealName as name2, A.PrescriptionName,
+          A.PrescriptionTime, A.PrescriptionState
+        FROM prescription A
+        LEFT JOIN medicalrecord B
+        ON A.MedicalID = B.ID
+        LEFT JOIN register C
+         ON A.RegistID = C.ID
+        LEFT JOIN `user` D
+        ON A.UserID = D.ID
+  </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.baseinformation.dao.ConstantItemMapper">
+  <resultMap id="BaseResultMap" type="com.neu.hospital.baseinformation.entity.ConstantItem">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ConstantTypeID" jdbcType="INTEGER" property="constanttypeid" />
+    <result column="ConstantCode" jdbcType="VARCHAR" property="constantcode" />
+    <result column="ConstantName" jdbcType="VARCHAR" property="constantname" />
+    <result column="DelMark" jdbcType="INTEGER" property="delmark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from constantitem
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neu.hospital.baseinformation.entity.ConstantItem">
+    insert into constantitem (ID, ConstantTypeID, ConstantCode, 
+      ConstantName, DelMark)
+    values (#{id,jdbcType=INTEGER}, #{constanttypeid,jdbcType=INTEGER}, #{constantcode,jdbcType=VARCHAR}, 
+      #{constantname,jdbcType=VARCHAR}, #{delmark,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.neu.hospital.baseinformation.entity.ConstantItem">
+    update constantitem
+    set ConstantTypeID = #{constanttypeid,jdbcType=INTEGER},
+      ConstantCode = #{constantcode,jdbcType=VARCHAR},
+      ConstantName = #{constantname,jdbcType=VARCHAR},
+      DelMark = #{delmark,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, ConstantTypeID, ConstantCode, ConstantName, DelMark
+    from constantitem
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="com.neu.hospital.baseinformation.entity.ConstantItem" resultMap="BaseResultMap">
+    select A.ID, A.ConstantTypeID, A.ConstantCode, B.ConstantTypeCode, B.ConstantTypeName, A.ConstantName, A.DelMark
+    from constantitem A
+    left join constanttype B
+    on A.ConstantTypeID = B.ID
+    <where>
+      <if test="constantcode != null and constantcode != ''">
+        and A.ConstantCode=#{constantcode}
+      </if>
+      <if test="constantname != null and constantname != ''">``
+        and A.ConstantName like concat('%',#{constantname},'%')
+      </if>
+    </where>
+
+  </select>
+</mapper>

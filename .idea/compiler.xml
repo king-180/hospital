@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hospital-outpatientpharmacy" />
+        <module name="hospital-outpatientfinancial" />
+        <module name="hospital-outpatientregistration" />
+        <module name="hospital-common" />
+        <module name="renren-fast" />
+        <module name="hospital-outpatientdoctor" />
+        <module name="hospital-baseinformation" />
+        <module name="hospital-outpatientmedicaltechnology" />
+        <module name="hospital-gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hospital" target="1.8" />
+      <module name="hospital-baseinformation" target="1.8" />
+      <module name="hospital-common" target="1.8" />
+      <module name="hospital-gateway" target="1.8" />
+      <module name="hospital-outpatientdoctor" target="1.8" />
+      <module name="hospital-outpatientfinancial" target="1.8" />
+      <module name="hospital-outpatientmedicaltechnology" target="1.8" />
+      <module name="hospital-outpatientpharmacy" target="1.8" />
+      <module name="hospital-outpatientregistration" target="1.8" />
+      <module name="renren-fast" target="1.8" />
+      <module name="renren-generator" target="1.8" />
+      <module name="renren-generator-apache" target="1.8" />
+      <module name="renrenio-renren-generator-master" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hospital-baseinformation" options="-parameters" />
+      <module name="hospital-common" options="-parameters" />
+      <module name="hospital-gateway" options="-parameters" />
+      <module name="hospital-outpatientdoctor" options="-parameters" />
+      <module name="hospital-outpatientfinancial" options="-parameters" />
+      <module name="hospital-outpatientmedicaltechnology" options="-parameters" />
+      <module name="hospital-outpatientpharmacy" options="-parameters" />
+      <module name="hospital-outpatientregistration" options="-parameters" />
+      <module name="renren-fast" options="-parameters" />
+      <module name="renren-generator" options="-parameters" />
+      <module name="renren-generator-apache" options="-parameters" />
+      <module name="renrenio-renren-generator-master" options="-parameters" />
+    </option>
+  </component>
+</project>

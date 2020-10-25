@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hospital.iml" filepath="$PROJECT_DIR$/hospital.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-baseinformation/hospital-baseinformation.iml" filepath="$PROJECT_DIR$/hospital-baseinformation/hospital-baseinformation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-common/hospital-common.iml" filepath="$PROJECT_DIR$/hospital-common/hospital-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-gateway/hospital-gateway.iml" filepath="$PROJECT_DIR$/hospital-gateway/hospital-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-outpatientdoctor/hospital-outpatientdoctor.iml" filepath="$PROJECT_DIR$/hospital-outpatientdoctor/hospital-outpatientdoctor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-outpatientfinancial/hospital-outpatientfinancial.iml" filepath="$PROJECT_DIR$/hospital-outpatientfinancial/hospital-outpatientfinancial.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-outpatientmedicaltechnology/hospital-outpatientmedicaltechnology.iml" filepath="$PROJECT_DIR$/hospital-outpatientmedicaltechnology/hospital-outpatientmedicaltechnology.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-outpatientpharmacy/hospital-outpatientpharmacy.iml" filepath="$PROJECT_DIR$/hospital-outpatientpharmacy/hospital-outpatientpharmacy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hospital-outpatientregistration/hospital-outpatientregistration.iml" filepath="$PROJECT_DIR$/hospital-outpatientregistration/hospital-outpatientregistration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renren-fast/renren-fast.iml" filepath="$PROJECT_DIR$/renren-fast/renren-fast.iml" />
+    </modules>
+  </component>
+</project>

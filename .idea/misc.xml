@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-baseinformation/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-common/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-outpatientregistration/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-outpatientdoctor/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-outpatientmedicaltechnology/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-outpatientpharmacy/pom.xml" />
+        <option value="$PROJECT_DIR$/hospital-outpatientfinancial/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

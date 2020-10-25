@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.baseinformation.dao.DepartMentMapper">
+  <resultMap id="BaseResultMap" type="com.neu.hospital.baseinformation.entity.DepartMent">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DeptCode" jdbcType="VARCHAR" property="deptcode" />
+    <result column="DeptName" jdbcType="VARCHAR" property="deptname" />
+    <result column="DeptCategoryID" jdbcType="INTEGER" property="deptcategoryid" />
+    <result column="DeptType" jdbcType="INTEGER" property="depttype" />
+    <result column="DelMark" jdbcType="INTEGER" property="delmark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from department
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neu.hospital.baseinformation.entity.DepartMent">
+    insert into department (ID, DeptCode, DeptName, 
+      DeptCategoryID, DeptType, DelMark
+      )
+    values (#{id,jdbcType=INTEGER}, #{deptcode,jdbcType=VARCHAR}, #{deptname,jdbcType=VARCHAR}, 
+      #{deptcategoryid,jdbcType=INTEGER}, #{depttype,jdbcType=INTEGER}, #{delmark,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.neu.hospital.baseinformation.entity.DepartMent">
+    update department
+    set DeptCode = #{deptcode,jdbcType=VARCHAR},
+      DeptName = #{deptname,jdbcType=VARCHAR},
+      DeptCategoryID = #{deptcategoryid,jdbcType=INTEGER},
+      DeptType = #{depttype,jdbcType=INTEGER},
+      DelMark = #{delmark,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, DeptCode, DeptName, DeptCategoryID, DeptType, DelMark
+    from department
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll"  parameterType="com.neu.hospital.baseinformation.entity.DepartMent" resultMap="BaseResultMap">
+    select A.DeptCode, A.DeptName, B.ConstantName, A.DeptType, A.DelMark
+    from department A
+    left join constantitem B
+    on A.DeptCategoryID = B.ID
+    <where>
+      <if test="deptcode != null and deptcode != ''">
+        and A.DeptCode=#{deptcode}
+      </if>
+      <if test="deptname != null and deptname != ''">
+        and A.DeptName like concat('%',#{deptname},'%')
+      </if>
+    </where>
+  </select>
+</mapper>

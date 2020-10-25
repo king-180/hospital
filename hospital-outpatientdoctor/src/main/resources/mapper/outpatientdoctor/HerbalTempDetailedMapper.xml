@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.HerbalTempDetailedMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.HerbalTempDetailed">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="HerbalTempID" jdbcType="INTEGER" property="herbaltempid"/>
+        <result column="HerbalID" jdbcType="INTEGER" property="herbalid"/>
+        <result column="Dosage" jdbcType="VARCHAR" property="dosage"/>
+        <result column="Unit" jdbcType="VARCHAR" property="unit"/>
+        <result column="Footnote" jdbcType="VARCHAR" property="footnote"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from herbaltempdetailed
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.HerbalTempDetailed">
+        insert into herbaltempdetailed (ID, HerbalTempID, HerbalID,
+                                        Dosage, Unit, Footnote)
+        values (#{id,jdbcType=INTEGER}, #{herbaltempid,jdbcType=INTEGER}, #{herbalid,jdbcType=INTEGER},
+                #{dosage,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{footnote,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.HerbalTempDetailed">
+        update herbaltempdetailed
+        set HerbalTempID = #{herbaltempid,jdbcType=INTEGER},
+            HerbalID     = #{herbalid,jdbcType=INTEGER},
+            Dosage       = #{dosage,jdbcType=VARCHAR},
+            Unit         = #{unit,jdbcType=VARCHAR},
+            Footnote     = #{footnote,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID, HerbalTempID, HerbalID, Dosage, Unit, Footnote
+        from herbaltempdetailed
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        # select ID, HerbalTempID, HerbalID, Dosage, Unit, Footnote
+        # from herbaltempdetailed
+        SELECT B.`Name`, C.DrugsName,A.Dosage,A.Unit,A.Footnote
+        FROM herbaltempdetailed A
+                 LEFT JOIN herbaltemplate B
+                           ON A.HerbalTempID = B.ID
+                 LEFT JOIN drugs C
+                           ON A.HerbalID = C.ID
+    </select>
+</mapper>

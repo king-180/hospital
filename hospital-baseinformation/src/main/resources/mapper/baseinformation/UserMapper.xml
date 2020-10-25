@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.baseinformation.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.baseinformation.entity.User">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="UserName" jdbcType="VARCHAR" property="username"/>
+        <result column="Password" jdbcType="VARCHAR" property="password"/>
+        <result column="RealName" jdbcType="VARCHAR" property="realname"/>
+        <result column="UseType" jdbcType="INTEGER" property="usetype"/>
+        <result column="DocTitleID" jdbcType="INTEGER" property="doctitleid"/>
+        <result column="IsScheduling" jdbcType="CHAR" property="isscheduling"/>
+        <result column="DeptID" jdbcType="INTEGER" property="deptid"/>
+        <result column="RegistLeID" jdbcType="INTEGER" property="registleid"/>
+        <result column="DelMark" jdbcType="INTEGER" property="delmark"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from user
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.baseinformation.entity.User">
+        insert into user (ID, UserName, Password,
+                          RealName, UseType, DocTitleID,
+                          IsScheduling, DeptID, RegistLeID,
+                          DelMark)
+        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{realname,jdbcType=VARCHAR}, #{usetype,jdbcType=INTEGER}, #{doctitleid,jdbcType=INTEGER},
+                #{isscheduling,jdbcType=CHAR}, #{deptid,jdbcType=INTEGER}, #{registleid,jdbcType=INTEGER},
+                #{delmark,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.baseinformation.entity.User">
+        update user
+        set UserName     = #{username,jdbcType=VARCHAR},
+            Password     = #{password,jdbcType=VARCHAR},
+            RealName     = #{realname,jdbcType=VARCHAR},
+            UseType      = #{usetype,jdbcType=INTEGER},
+            DocTitleID   = #{doctitleid,jdbcType=INTEGER},
+            IsScheduling = #{isscheduling,jdbcType=CHAR},
+            DeptID       = #{deptid,jdbcType=INTEGER},
+            RegistLeID   = #{registleid,jdbcType=INTEGER},
+            DelMark      = #{delmark,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               UserName,
+               Password,
+               RealName,
+               UseType,
+               DocTitleID,
+               IsScheduling,
+               DeptID,
+               RegistLeID,
+               DelMark
+        from user
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" parameterType="com.neu.hospital.baseinformation.entity.User" resultMap="BaseResultMap">
+        select A.UserName,
+               A.`Password`,
+               A.RealName,
+               A.UseType,
+               B.ConstantName,
+               A.IsScheduling,
+               C.DeptName,
+               D.RegistName,
+               A.DelMark
+        from user A
+                 LEFT JOIN constantitem B
+                           on A.DocTitleID = B.ID
+                 LEFT JOIN department C
+                           on A.DeptID = C.ID
+                 LEFT JOIN registlevel D
+                           on A.RegistLeID = D.ID
+        <where>
+            <if test="realname != null and realname != ''">
+                and A.RealName=#{realname}
+            </if>
+            <if test="deptname != null and deptname != ''">
+                and C.DeptName like concat('%',#{deptname},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

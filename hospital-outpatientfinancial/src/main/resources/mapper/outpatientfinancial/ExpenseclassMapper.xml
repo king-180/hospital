@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neu.hospital.outpatientfinancial.dao.ExpenseclassMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.neu.hospital.outpatientfinancial.entity.Expenseclass" id="BaseResultMap">
+        <result property="id" column="ID"/>
+        <result property="expcode" column="ExpCode"/>
+        <result property="expname" column="ExpName"/>
+        <result property="delmark" column="DelMark"/>
+    </resultMap>
+    <select id="selectAll" parameterType="com.neu.hospital.outpatientfinancial.entity.Expenseclass" resultMap="BaseResultMap">
+        select *
+        from expenseclass
+    </select>
+
+</mapper>

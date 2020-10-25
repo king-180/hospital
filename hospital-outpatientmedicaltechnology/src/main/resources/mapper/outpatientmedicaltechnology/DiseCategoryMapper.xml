@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientmedicaltechnology.dao.DisecategoryMapper">
+  <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientmedicaltechnology.entity.Disecategory">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DicaCode" jdbcType="VARCHAR" property="dicacode" />
+    <result column="DicaName" jdbcType="VARCHAR" property="dicaname" />
+    <result column="SequenceNo" jdbcType="INTEGER" property="sequenceno" />
+    <result column="DicaType" jdbcType="INTEGER" property="dicatype" />
+    <result column="DelMark" jdbcType="INTEGER" property="delmark" />
+  </resultMap>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from disecategory-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.neu.hospital.outpatientmedicaltechnology.entity.DiseCategory">-->
+<!--    insert into disecategory (ID, DicaCode, DicaName, -->
+<!--      SequenceNo, DicaType, DelMark-->
+<!--      )-->
+<!--    values (#{id,jdbcType=INTEGER}, #{dicacode,jdbcType=VARCHAR}, #{dicaname,jdbcType=VARCHAR}, -->
+<!--      #{sequenceno,jdbcType=INTEGER}, #{dicatype,jdbcType=INTEGER}, #{delmark,jdbcType=INTEGER}-->
+<!--      )-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientmedicaltechnology.entity.DiseCategory">-->
+<!--    update disecategory-->
+<!--    set DicaCode = #{dicacode,jdbcType=VARCHAR},-->
+<!--      DicaName = #{dicaname,jdbcType=VARCHAR},-->
+<!--      SequenceNo = #{sequenceno,jdbcType=INTEGER},-->
+<!--      DicaType = #{dicatype,jdbcType=INTEGER},-->
+<!--      DelMark = #{delmark,jdbcType=INTEGER}-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select ID, DicaCode, DicaName, SequenceNo, DicaType, DelMark-->
+<!--    from disecategory-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+  <select id="selectAll" parameterType="com.neu.hospital.outpatientmedicaltechnology.entity.Disecategory" resultMap="BaseResultMap">
+    select ID, DicaCode, DicaName, SequenceNo, DicaType, DelMark
+    from disecategory
+  </select>
+</mapper>

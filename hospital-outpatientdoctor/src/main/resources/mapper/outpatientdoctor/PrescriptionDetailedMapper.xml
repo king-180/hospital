@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.PrescriptionDetailedMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.PrescriptionDetailed">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="PrescriptionID" jdbcType="INTEGER" property="prescriptionid"/>
+        <result column="DrugsID" jdbcType="INTEGER" property="drugsid"/>
+        <result column="DrugsUsage" jdbcType="VARCHAR" property="drugsusage"/>
+        <result column="Dosage" jdbcType="VARCHAR" property="dosage"/>
+        <result column="Frequency" jdbcType="VARCHAR" property="frequency"/>
+        <result column="Amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="State" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from prescriptiondetailed
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.PrescriptionDetailed">
+        insert into prescriptiondetailed (ID, PrescriptionID, DrugsID,
+                                          DrugsUsage, Dosage, Frequency,
+                                          Amount, State)
+        values (#{id,jdbcType=INTEGER}, #{prescriptionid,jdbcType=INTEGER}, #{drugsid,jdbcType=INTEGER},
+                #{drugsusage,jdbcType=VARCHAR}, #{dosage,jdbcType=VARCHAR}, #{frequency,jdbcType=VARCHAR},
+                #{amount,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.PrescriptionDetailed">
+        update prescriptiondetailed
+        set PrescriptionID = #{prescriptionid,jdbcType=INTEGER},
+            DrugsID        = #{drugsid,jdbcType=INTEGER},
+            DrugsUsage     = #{drugsusage,jdbcType=VARCHAR},
+            Dosage         = #{dosage,jdbcType=VARCHAR},
+            Frequency      = #{frequency,jdbcType=VARCHAR},
+            Amount         = #{amount,jdbcType=DECIMAL},
+            State          = #{state,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               PrescriptionID,
+               DrugsID,
+               DrugsUsage,
+               Dosage,
+               Frequency,
+               Amount,
+               State
+        from prescriptiondetailed
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        # select ID, PrescriptionID, DrugsID, DrugsUsage, Dosage, Frequency, Amount, State
+        # from prescriptiondetailed
+        SELECT B.PrescriptionName,
+               C.DrugsName,
+               A.DrugsUsage,
+               A.Dosage,
+               A.Frequency,
+               A.Amount,
+               A.State
+        FROM prescriptiondetailed A
+                 LEFT JOIN prescription B
+                           ON A.PrescriptionID = B.ID
+                 LEFT JOIN drugs C
+                           ON A.DrugsID = C.ID
+    </select>
+</mapper>

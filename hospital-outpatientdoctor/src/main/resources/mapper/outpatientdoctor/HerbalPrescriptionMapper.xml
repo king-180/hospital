@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.hospital.outpatientdoctor.dao.HerbalPrescriptionMapper">
+    <resultMap id="BaseResultMap" type="com.neu.hospital.outpatientdoctor.entity.HerbalPrescription">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="MedicalID" jdbcType="INTEGER" property="medicalid"/>
+        <result column="RegistID" jdbcType="INTEGER" property="registid"/>
+        <result column="UserID" jdbcType="INTEGER" property="userid"/>
+        <result column="PrescriptionName" jdbcType="VARCHAR" property="prescriptionname"/>
+        <result column="CreationTime" jdbcType="TIMESTAMP" property="creationtime"/>
+        <result column="PrescriptioType" jdbcType="VARCHAR" property="prescriptiotype"/>
+        <result column="PayNumber" jdbcType="INTEGER" property="paynumber"/>
+        <result column="Frequency" jdbcType="VARCHAR" property="frequency"/>
+        <result column="DrugsUsage" jdbcType="VARCHAR" property="drugsusage"/>
+        <result column="Therapy" jdbcType="VARCHAR" property="therapy"/>
+        <result column="Detailed" jdbcType="VARCHAR" property="detailed"/>
+        <result column="Advice" jdbcType="VARCHAR" property="advice"/>
+        <result column="State" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from herbalprescription
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.neu.hospital.outpatientdoctor.entity.HerbalPrescription">
+        insert into herbalprescription (ID, MedicalID, RegistID,
+                                        UserID, PrescriptionName, CreationTime,
+                                        PrescriptioType, PayNumber, Frequency,
+                                        DrugsUsage, Therapy, Detailed,
+                                        Advice, State)
+        values (#{id,jdbcType=INTEGER}, #{medicalid,jdbcType=INTEGER}, #{registid,jdbcType=INTEGER},
+                #{userid,jdbcType=INTEGER}, #{prescriptionname,jdbcType=VARCHAR}, #{creationtime,jdbcType=TIMESTAMP},
+                #{prescriptiotype,jdbcType=VARCHAR}, #{paynumber,jdbcType=INTEGER}, #{frequency,jdbcType=VARCHAR},
+                #{drugsusage,jdbcType=VARCHAR}, #{therapy,jdbcType=VARCHAR}, #{detailed,jdbcType=VARCHAR},
+                #{advice,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.neu.hospital.outpatientdoctor.entity.HerbalPrescription">
+        update herbalprescription
+        set MedicalID        = #{medicalid,jdbcType=INTEGER},
+            RegistID         = #{registid,jdbcType=INTEGER},
+            UserID           = #{userid,jdbcType=INTEGER},
+            PrescriptionName = #{prescriptionname,jdbcType=VARCHAR},
+            CreationTime     = #{creationtime,jdbcType=TIMESTAMP},
+            PrescriptioType  = #{prescriptiotype,jdbcType=VARCHAR},
+            PayNumber        = #{paynumber,jdbcType=INTEGER},
+            Frequency        = #{frequency,jdbcType=VARCHAR},
+            DrugsUsage       = #{drugsusage,jdbcType=VARCHAR},
+            Therapy          = #{therapy,jdbcType=VARCHAR},
+            Detailed         = #{detailed,jdbcType=VARCHAR},
+            Advice           = #{advice,jdbcType=VARCHAR},
+            State            = #{state,jdbcType=INTEGER}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               MedicalID,
+               RegistID,
+               UserID,
+               PrescriptionName,
+               CreationTime,
+               PrescriptioType,
+               PayNumber,
+               Frequency,
+               DrugsUsage,
+               Therapy,
+               Detailed,
+               Advice,
+               State
+        from herbalprescription
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT A.MedicalID,
+               C.RealName as name1,
+               D.RealName as name2,
+               A.PrescriptionName,
+               A.CreationTime,
+               A.PrescriptioType,
+               A.PayNumber,
+               A.Frequency,
+               A.DrugsUsage,
+               A.Therapy,
+               A.Detailed,
+               A.Advice,
+               A.State
+        FROM herbalprescription A
+                 LEFT JOIN medicalrecord B
+                           ON A.MedicalID = B.ID
+                 LEFT JOIN register C
+                           ON A.RegistID = C.ID
+                 LEFT JOIN `user` D
+                           ON A.UserID = D.ID
+    </select>
+</mapper>

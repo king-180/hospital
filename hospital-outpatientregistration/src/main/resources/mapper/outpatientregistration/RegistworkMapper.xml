@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neu.hospital.outpatientregistration.dao.RegistworkMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.neu.hospital.outpatientregistration.entity.Registwork" id="BaseResultMap">
+        <result property="id" column="ID"/>
+        <result property="registerid" column="RegisterID"/>
+        <result property="starttime" column="StartTime"/>
+        <result property="endtime" column="EndTime"/>
+    </resultMap>
+    <select id="selectAll" parameterType="com.neu.hospital.outpatientregistration.entity.Registwork"
+            resultMap="BaseResultMap">
+        select B.RealName, A.StartTime, A.EndTime
+        from registwork A
+                 left join user B
+                           on A.RegisterID = B.ID
+    </select>
+
+</mapper>

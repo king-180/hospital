@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neu.hospital.outpatientpharmacy.dao.DrugsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.neu.hospital.outpatientpharmacy.entity.Drugs" id="BaseResultMap">
+        <result property="id" column="ID"/>
+        <result property="drugscode" column="DrugsCode"/>
+        <result property="drugsname" column="DrugsName"/>
+        <result property="drugsformat" column="DrugsFormat"/>
+        <result property="drugsunit" column="DrugsUnit"/>
+        <result property="manufacturer" column="Manufacturer"/>
+        <result property="drugsdosageid" column="DrugsDosageID"/>
+        <result property="drugstypeid" column="DrugsTypeID"/>
+        <result property="drugsprice" column="DrugsPrice"/>
+        <result property="mnemoniccode" column="MnemonicCode"/>
+        <result property="creationdate" column="CreationDate"/>
+        <result property="lastupdatedate" column="LastUpdateDate"/>
+        <result property="delmark" column="DelMark"/>
+    </resultMap>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from drugs
+    </select>
+
+</mapper>

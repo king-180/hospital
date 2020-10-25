@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: hospital-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: baseinformation_route
+          uri: lb://hospital-baseinformation
+          predicates:
+            - Path=/api/baseinformation/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: outpatientmedicaltechnology_route
+          uri: lb://hospital-outpatientmedicaltechnology
+          predicates:
+            - Path=/api/outpatientmedicaltechnology/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: outpatientregistration_route
+          uri: lb://hospital-outpatientregistration
+          predicates:
+            - Path=/api/outpatientregistration/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: outpatientdoctor_route
+          uri: lb://hospital-outpatientdoctor
+          predicates:
+            - Path=/api/outpatientdoctor/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: outpatientpharmacy_route
+          uri: lb://hospital-outpatientpharmacy
+          predicates:
+            - Path=/api/outpatientpharmacy/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: outpatientfinancial_route
+          uri: lb://hospital-outpatientfinancial
+          predicates:
+            - Path=/api/outpatientfinancial/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/renren-fast/$\{segment}

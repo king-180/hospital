@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neu.hospital.outpatientregistration.dao.InvoiceMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.neu.hospital.outpatientregistration.entity.Invoice" id="BaseResultMap">
+        <result property="id" column="ID"/>
+        <result property="invoicenum" column="InvoiceNum"/>
+        <result property="money" column="Money"/>
+        <result property="state" column="State"/>
+        <result property="creationtime" column="CreationTime"/>
+        <result property="userid" column="UserID"/>
+        <result property="registid" column="RegistID"/>
+        <result property="feetype" column="FeeType"/>
+        <result property="back" column="Back"/>
+        <result property="dailystate" column="DailyState"/>
+    </resultMap>
+    <select id="selectAll" parameterType="com.neu.hospital.outpatientregistration.entity.Invoice" resultMap="BaseResultMap">
+        select *
+        from invoice
+    </select>
+
+</mapper>
